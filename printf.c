@@ -1,5 +1,26 @@
 #include "holberton.h"
 
+void check_flag(char flag,char *buffer, va_list vars, int *b, int *bc)
+{
+	switch (flag)
+			{
+			case 'c':
+				prt_char(buffer, b, bc, vars);
+				break;
+			case 's':
+				prt_str(buffer, b, bc, vars);
+				break;
+			case '%':
+				prt_pct(buffer, b, bc);
+				break;
+			case 'i':
+				prt_int(buffer, b, bc, vars);
+				break;
+			default:
+				break;
+			}
+}
+
 /**
  * czech_format - checks format string
  * @format: the format
@@ -19,6 +40,7 @@ int czech_format(const char *format, char *buffer, va_list vars)
 		{
 			if (format[f + 1] == '\0')
 	    		return (-1);
+			check_flag(format[f + 1], buffer, vars, &b, &bc);
 		}
 		else /*argument flag*/
 		{
@@ -26,6 +48,7 @@ int czech_format(const char *format, char *buffer, va_list vars)
 	    	b++;
 		}
 	}
+	write(1, buffer, b);
 	return (bc * 1024 + b);
 }
   

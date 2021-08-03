@@ -1,11 +1,15 @@
 #include "holberton.h"
 
+/**
+ * @brief 
+ * 
+ * @buff:
+ * @b:
+ * @bc:
+ * @vars: 
+ */
+
 void prt_int(char *buff, int *b, int *bc, va_list vars);
 {
-if (b == 1024)
-clearBuffer(buffer, b, bc)
-
-
-
-
+	return;
 }
