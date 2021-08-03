@@ -1,5 +1,13 @@
 #include "holberton.h"
 
+/**
+ * czech_format - checks format string
+ * @format: the format
+ * @buffer: the buffer
+ * @vars: variables
+ * Return: -1 or number of bytes written
+ */
+
 int czech_format(const char *format, char *buffer, va_list vars)
 {
 	int f, b = 0, bc = 0;
@@ -10,7 +18,7 @@ int czech_format(const char *format, char *buffer, va_list vars)
 		if (format[f] == '%')
 		{
 			if (format[f + 1] == '\0')
-	    		return(-1);
+	    		return (-1);
 		}
 		else /*argument flag*/
 		{
@@ -18,6 +26,7 @@ int czech_format(const char *format, char *buffer, va_list vars)
 	    	b++;
 		}
 	}
+	return (bc * 1024 + b);
 }
   
   
@@ -37,10 +46,10 @@ int _printf(const char *format, ...)
 	va_start(vars, format);
 	buffer = malloc(1024);
 	if (!buffer)
-	  return(-1);
+	  return (-1);
 	if (format == NULL)
-	  return(-1);
-	bytes = czech_format(format, buffer);
+	  return (-1);
+	bytes = czech_format(format, buffer, vars);
 	free(buffer);
 	va_end(vars);
 	return (bytes);
