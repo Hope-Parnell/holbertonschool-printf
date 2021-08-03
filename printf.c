@@ -1,27 +1,24 @@
 #include "holberton.h"
 
-int czech_format(const char *format, char *buffer, int *b, int *bc, va_list vars)
+int czech_format(const char *format, char *buffer, va_list vars)
 {
-  int f;
-  for (f = 0; format[f] != '\0'; f++)
+	int f, b = 0, bc = 0;
+	for (f = 0; format[f] != '\0'; f++)
     {
-      if (b = 1024)
-	clearBuffer(buffer, &b, &bc); /*write and clear buffer if full*/
-      if (format[f] == '%')
-	{
-	  f++;
-	  if (format[f] == '\0')
-	    {
-	      return(-1);
-	  freebuffer
-	    }
-	  else /*argument flag*/
-	    {
-	      buffer[b] = format[f];
-	      b++;
-	    }
+		if (b = 1024)
+			clearBuffer(buffer, &b, &bc); /*write and clear buffer if full*/
+		if (format[f] == '%')
+		{
+			if (format[f + 1] == '\0')
+	    		return(-1);
+		}
+		else /*argument flag*/
+		{
+	    	buffer[b] = format[f];
+	    	b++;
+		}
 	}
-    }
+}
   
   
 /**
@@ -33,7 +30,7 @@ int czech_format(const char *format, char *buffer, int *b, int *bc, va_list vars
 
 int _printf(const char *format, ...)
 {
-	int bytes, b = 0, bc = 0;
+	int bytes;
 	char *buffer;
 	va_list vars;
 
@@ -43,7 +40,7 @@ int _printf(const char *format, ...)
 	  return(-1);
 	if (format == NULL)
 	  return(-1);
-	bytes = czech_format(format, buffer, &b, &bc);
+	bytes = czech_format(format, buffer);
 	free(buffer);
 	va_end(vars);
 	return (bytes);
