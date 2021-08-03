@@ -1,5 +1,29 @@
 #include "holberton.h"
 
+int czech_format(const char *format, char *buffer, int *b, int *bc, va_list vars)
+{
+  int f;
+  for (f = 0; format[f] != '\0'; f++)
+    {
+      if (b = 1024)
+	clearBuffer(buffer, &b, &bc); /*write and clear buffer if full*/
+      if (format[f] == '%')
+	{
+	  f++;
+	  if (format[f] == '\0')
+	    {
+	      return(-1);
+	  freebuffer
+	    }
+	  else /*argument flag*/
+	    {
+	      buffer[b] = format[f];
+	      b++;
+	    }
+	}
+    }
+  
+  
 /**
  * _printf - a simple clone of the printf standard library function
  * @format: format for the what is to be printed
@@ -9,31 +33,17 @@
 
 int _printf(const char *format, ...)
 {
-	int bytes, b = 0, f, bc = 0;
+	int bytes, b = 0, bc = 0;
 	char *buffer;
 	va_list vars;
 
 	va_start(vars, format);
 	buffer = malloc(1024);
-	for (f = 0; format[f] != '\0'; f++)
-	{
-		if (b = 1024)
-			clearBuffer(buffer, &b, &bc); /*write and clear buffer if full*/
-		if (format[f] != '%')
-		{
-			buffer[b] = format[f];
-			b++;
-		}
-		else /*argument flag*/
-		{
-			f++;
-			/*call case fuction*/
-			va_arg(vars, int);
-		}
-	}
-	
-	write(1, buffer, b);
-	bytes = (1024 * bc) + b;
+	if (!buffer)
+	  return(-1);
+	if (format == NULL)
+	  return(-1);
+	bytes = czech_format(format, buffer, &b, &bc);
 	free(buffer);
 	va_end(vars);
 	return (bytes);
