@@ -7,10 +7,9 @@
 
 
 int _printf(const char *format, ...);
-void clearBuffer(char *buff, int *b, int *bc);
-void prt_char(char *buff, int *b, int *bc, va_list vars);
-void prt_str(char *buff, int *b, int *bc, va_list vars);
-void prt_pct(char *buff, int *b, int *bc);
-void prt_int(char *buff, int *b, int *bc, va_list vars);
+int prt_char(int ct, char c);
+int prt_str(int ct, char *str);
+int prt_pct(int ct);
+int prt_int(int ct, int n);
 
 #endif /*HOLBERTON_H*/
