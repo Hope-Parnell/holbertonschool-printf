@@ -1,4 +1,11 @@
 #include "holberton.h"
+/**
+ * czech_flag - checks flags
+ * @vars: variables
+ * @ct: character count
+ * @flag: flags
+ * Return: characters, ints, strings and %
+ */
 
 int czech_flag(va_list vars, int ct, char flag)
 {
@@ -18,6 +25,13 @@ int czech_flag(va_list vars, int ct, char flag)
 		return (ct);
 	}
 }
+
+/**
+ * czech_format - checks the format
+ * @format: the format
+ * @vars: variable
+ * Return: character count
+ */
 
 int czech_format(const char *format, va_list vars)
 {
@@ -40,8 +54,9 @@ int czech_format(const char *format, va_list vars)
 	return (ct);
 }
 /**
- * @brief 
- * 
+ * _printf - prints
+ * @format: the format
+ * Return: -1 and character count
  */
 
 int _printf(const char *format, ...)
@@ -55,5 +70,5 @@ int _printf(const char *format, ...)
 
 	ct = czech_format(format, vars);
 	va_end(vars);
-	return(ct);
+	return (ct);
 }

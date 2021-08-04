@@ -1,5 +1,12 @@
 #include "holberton.h"
 
+/**
+ * prt_int - prints ints
+ * @ct: character count
+ * @n: number being pulled in
+ * Return: ct
+ */
+
 int prt_int(int ct, int n)
 {
 	int i;
@@ -23,5 +30,5 @@ int prt_int(int ct, int n)
 	i = (n % 10) + '0';
 	write(1, &i, 1);
 	ct++;
-	return(ct);
+	return (ct);
 }
