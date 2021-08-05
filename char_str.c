@@ -25,6 +25,8 @@ int prt_str(int ct, char *str)
 {
 	int i;
 
+	if (!str)
+		return (ct + write(1, "(null)", 6));
 	for (i = 0; str[i] != '\0'; i++)
 	;
 	return (ct + write(1, str, i));

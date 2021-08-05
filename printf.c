@@ -41,6 +41,8 @@ int czech_format(const char *format, va_list vars)
 	{
 		if (format[i] == '%')
 		{
+			if (format[i + 1] == '\0')
+				return (-1);
 			ct = (czech_flag(vars, ct, format[i + 1]));
 			i++;
 		}
