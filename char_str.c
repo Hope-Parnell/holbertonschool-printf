@@ -10,8 +10,8 @@ char *f_char(va_list vars)
 {
 	char *tmp = malloc(2);
 
-	tmp[1] = va_arg(vars, int);
-	tmp[2] = '\0';
+	tmp[0] = va_arg(vars, int);
+	tmp[1] = '\0';
 	return (tmp);
 }
 
