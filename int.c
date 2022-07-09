@@ -15,6 +15,8 @@ char *f_int(va_list vars)
 	if (n == 0)
 		return ("0");
 	tmp = malloc(12);
+	if (!tmp)
+		return (NULL);
 	if (n < 0)
 	{
 		is_neg = 1;
