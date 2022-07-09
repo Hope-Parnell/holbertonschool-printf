@@ -59,6 +59,11 @@ int czech_format(const char *format, va_list vars)
 				write(STDOUT_FILENO, buffer, buff_ct);
 				return (-1); }
 			temp = (czech_flag(vars, flag));
+			if (!temp)
+			{
+				write(STDOUT_FILENO, buffer, buff_ct);
+				return (-1);
+			}
 			buffer[buff_ct++] = temp[0];
 			for (j = 1; temp[j] != '\0'; j++)
 			{
@@ -73,8 +78,7 @@ int czech_format(const char *format, va_list vars)
 		}
 		else
 		{
-			buffer[buff_ct++] = format[i];
-		}
+			buffer[buff_ct++] = format[i]; }
 	}
 	return (ct + write(STDOUT_FILENO, buffer, buff_ct));
 }
