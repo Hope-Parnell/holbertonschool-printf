@@ -24,7 +24,7 @@ char *czech_flag(va_list vars, char flag)
 		if (flags[i].flag == flag)
 			return (flags[i].func(vars));
 	}
-	tmp = malloc(3);
+	tmp = malloc(sizeof(char) * 3);
 	if (!tmp)
 		return (NULL);
 	tmp[0] = '%';

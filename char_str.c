@@ -8,7 +8,7 @@
 
 char *f_char(va_list vars)
 {
-	char *tmp = malloc(2);
+	char *tmp = malloc(sizeof(char) * 2);
 
 	if (!tmp)
 		return (NULL);

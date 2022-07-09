@@ -10,7 +10,7 @@ char *f_int(va_list vars)
 	int i, j = 0, offset = 0, n = va_arg(vars, int);
 	char *tmp, t;
 
-	tmp = malloc(12);
+	tmp = malloc(sizeof(char) * 12);
 	if (!tmp)
 		return (NULL);
 	if (n == 0)
