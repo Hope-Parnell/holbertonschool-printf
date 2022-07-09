@@ -9,6 +9,7 @@
 char *czech_flag(va_list vars, char flag)
 {
 	int i;
+	char *tmp;
 	pff_t flags[] = {
 		{'i', f_int},
 		{'d', f_int},
@@ -23,7 +24,11 @@ char *czech_flag(va_list vars, char flag)
 		if (flags[i].flag == flag)
 			return (flags[i].func(vars));
 	}
-	return (NULL);
+	tmp = malloc(3);
+	tmp[0] = '%';
+	tmp[1] = flag;
+	tmp[2] = '\0';
+	return (tmp);
 }
 
 /**
@@ -36,7 +41,7 @@ char *czech_flag(va_list vars, char flag)
 int czech_format(const char *format, va_list vars)
 {
 	int i, j, ct = 0, buff_ct = 0;
-	char buffer[1024], *temp, flag, *free_flags = "idc";
+	char buffer[1024], *temp, flag;
 
 	for (i = 0; format[i] != '\0'; i++)
 	{
@@ -52,21 +57,16 @@ int czech_format(const char *format, va_list vars)
 				write(STDOUT_FILENO, buffer, buff_ct);
 				return (-1); }
 			temp = (czech_flag(vars, flag));
-			for (j = 0; temp[j] != '\0'; j++)
+			buffer[buff_ct++] = temp[0];
+			for (j = 1; temp[j] != '\0'; j++)
 			{
 				if (buff_ct == 1024)
 				{
 					ct += write(STDOUT_FILENO, buffer, 1024);
 					buff_ct = 0; }
-				buffer[buff_ct++] = temp[j];
-			}
-			for (j = 0; free_flags[j] != '\0'; j++)
-			{
-				if (flag == free_flags[j])
-				{
-					free(temp);
-					break; }
-			}
+				buffer[buff_ct++] = temp[j]; }
+			if (flag != 's' && flag != '%')
+				free(temp);
 			i++;
 		}
 		else
