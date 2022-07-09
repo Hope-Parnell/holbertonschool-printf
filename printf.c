@@ -43,24 +43,21 @@ int czech_format(const char *format, va_list vars)
 		if (buff_ct == 1024)
 		{
 			ct += write(STDOUT_FILENO, buffer, 1024);
-			buff_ct = 0;
-		}
+			buff_ct = 0; }
 		if (format[i] == '%')
 		{
 			flag = format[i + 1];
 			if (flag == '\0')
 			{
 				write(STDOUT_FILENO, buffer, buff_ct);
-				return (-1);
-			}
+				return (-1); }
 			temp = (czech_flag(vars, flag));
 			for (j = 0; temp[j] != '\0'; j++)
 			{
 				if (buff_ct == 1024)
 				{
 					ct += write(STDOUT_FILENO, buffer, 1024);
-					buff_ct = 0;
-				}
+					buff_ct = 0; }
 				buffer[buff_ct++] = temp[j];
 			}
 			for (j = 0; free_flags[j] != '\0'; j++)
@@ -68,8 +65,7 @@ int czech_format(const char *format, va_list vars)
 				if (flag == free_flags[j])
 				{
 					free(temp);
-					break;
-				}
+					break; }
 			}
 			i++;
 		}
