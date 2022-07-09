@@ -23,7 +23,7 @@ char *f_int(va_list vars)
 		tmp[0] = '-';
 		n = -n;
 	}
-	for (j = 0; n != 0; n /= 10, j++)
+	for (j = is_neg; n != 0; n /= 10, j++)
 		tmp[j] = (n % 10) + '0';
 	tmp[j] = '\0';
 	for (i = is_neg, j--; i < j; i++, j--)
