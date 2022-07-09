@@ -1,4 +1,4 @@
-#include "holberton.h"
+#include "main.h"
 /**
  * czech_flag - checks flags
  * @vars: variables
