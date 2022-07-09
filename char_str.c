@@ -1,47 +1,38 @@
 #include "holberton.h"
 
 /**
- * prt_char - prints chars
- * @ct: character count
- * @c: char being pulled in
- * Return: ct
+ * f_char - handles characters for printf
+ * @vars: list of variables
+ * Return: string to print
  */
 
-int prt_char(int ct, char c)
+char *f_char(va_list vars)
 {
-	write(1, &c, 1);
-	ct++;
-	return (ct);
+	char *tmp = malloc(2);
+
+	tmp[1] = va_arg(vars, int);
+	tmp[2] = '\0';
+	return (tmp);
 }
 
 /**
- * prt_str - prints string
- * @ct: character count
- * @str: string
- * Return: amount of characters being printed
+ * f_str - handles strings for printf
+ * @vars: list of variables
+ * Return: string to print
  */
 
-int prt_str(int ct, char *str)
+char *f_str(va_list vars)
 {
-	int i;
-
-	if (!str)
-		return (ct + write(1, "(null)", 6));
-	for (i = 0; str[i] != '\0'; i++)
-	;
-	return (ct + write(1, str, i));
+	return (va_arg(vars, char *));
 }
 
 /**
- * prt_pct - prints %
- * @ct: character count
- * Return: character count
+ * f_pct - handles % for printf
+ * @vars: list of variables
+ * Return: string to print
  */
-int prt_pct(int ct)
+char *f_pct(va_list vars)
 {
-	char c = '%';
-
-	write(1, &c, 1);
-	ct++;
-	return (ct);
+	(void)vars;
+	return ("%");
 }

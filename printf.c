@@ -2,28 +2,28 @@
 /**
  * czech_flag - checks flags
  * @vars: variables
- * @ct: character count
  * @flag: flags
- * Return: characters, ints, strings and %
+ * Return: string to add to buffer
  */
 
-int czech_flag(va_list vars, int ct, char flag)
+char *czech_flag(va_list vars, char flag)
 {
-	switch (flag)
+	int i;
+	pff_t flags[] = {
+		{'i', f_int},
+		{'d', f_int},
+		{'c', f_char},
+		{'s', f_str},
+		{'%', f_pct},
+		{'\0', NULL}
+	};
+
+	for (i = 0; flags[i].flag != '\0'; i++)
 	{
-	case 'c':
-		return (prt_char(ct, va_arg(vars, int)));
-	case 's':
-		return (prt_str(ct, va_arg(vars, char *)));
-	case '%':
-		return (prt_pct(ct));
-	case 'i': case 'd':
-		return (prt_int(ct, va_arg(vars, int)));
-	default:
-		ct += write(1, "%", 1);
-		ct += write(1, &flag, 1);
-		return (ct);
+		if (flags[i].flag == flag)
+			return (flags[i].func(vars));
 	}
+	return (NULL);
 }
 
 /**
@@ -35,25 +35,50 @@ int czech_flag(va_list vars, int ct, char flag)
 
 int czech_format(const char *format, va_list vars)
 {
-	int i, ct = 0;
+	int i, j, ct = 0, buff_ct = 0;
+	char buffer[1024], *temp, flag, *free_flags = "idc";
 
 	for (i = 0; format[i] != '\0'; i++)
 	{
+		if (buff_ct == 1024)
+		{
+			ct += write(STDOUT_FILENO, buffer, 1024);
+			buff_ct = 0;
+		}
 		if (format[i] == '%')
 		{
-			if (format[i + 1] == '\0')
+			flag = format[i + 1];
+			if (flag == '\0')
+			{
+				write(STDOUT_FILENO, buffer, buff_ct);
 				return (-1);
-			ct = (czech_flag(vars, ct, format[i + 1]));
+			}
+			temp = (czech_flag(vars, flag));
+			for (j = 0; temp[j] != '\0'; j++)
+			{
+				if (buff_ct == 1024)
+				{
+					ct += write(STDOUT_FILENO, buffer, 1024);
+					buff_ct = 0;
+				}
+				buffer[buff_ct++] = temp[j];
+			}
+			for (j = 0; free_flags[j] != '\0'; j++)
+			{
+				if (flag == free_flags[j])
+				{
+					free(temp);
+					break;
+				}
+			}
 			i++;
 		}
 		else
 		{
-			write(1, &format[i], 1);
-			ct++;
+			buffer[buff_ct++] = format[i];
 		}
 	}
-	(void)vars;
-	return (ct);
+	return (ct + write(STDOUT_FILENO, buffer, buff_ct));
 }
 /**
  * _printf - prints

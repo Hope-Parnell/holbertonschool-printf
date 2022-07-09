@@ -1,34 +1,34 @@
 #include "holberton.h"
 
 /**
- * prt_int - prints ints
- * @ct: character count
- * @n: number being pulled in
- * Return: ct
+ * f_int - handles chars for printf
+ * @vars: list of variables
+ * Return: string to print
  */
-
-int prt_int(int ct, int n)
+char *f_int(va_list vars)
 {
-	int i;
+	int i, j, is_neg = 0, n = va_arg(vars, int);
+	char *tmp, t;
 
 	if (n == -2147483648)
-	{
-		ct += 11;
-		write(1, "-2147483648", 11);
-		return (ct);
-	}
+		return ("-2147483648");
+	if (n == 0)
+		return ("0");
+	tmp = malloc(12);
 	if (n < 0)
 	{
-		write(1, "-", 1);
-		ct++;
+		is_neg = 1;
+		tmp[0] = '-';
 		n = -n;
 	}
-	if (n / 10 != 0)
+	for (j = 0; n != 0; n /= 10, j++)
+		tmp[j] = (n % 10) + '0';
+	tmp[j] = '\0';
+	for (i = is_neg, j--; i < j; i++, j--)
 	{
-		ct = prt_int(ct, n / 10);
+		t = tmp[i];
+		tmp[i] = tmp[j];
+		tmp[j] = t;
 	}
-	i = (n % 10) + '0';
-	write(1, &i, 1);
-	ct++;
-	return (ct);
+	return (tmp);
 }
