@@ -23,7 +23,11 @@ char *f_char(va_list vars)
 
 char *f_str(va_list vars)
 {
-	return (va_arg(vars, char *));
+	char *tmp = va_arg(vars, char *);
+
+	if (!tmp)
+		tmp = "(null)";
+	return (tmp);
 }
 
 /**
